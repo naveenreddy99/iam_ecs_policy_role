@@ -1,4 +1,4 @@
 roles = {
-  developer = ["team1_policy"]
-  devops = ["team1_policy", "team2_policy"]
+  devops_task_execution_role = ["devops_task_execution_policy"]
+  devops_task_role = ["devops_task_policy"]
 }

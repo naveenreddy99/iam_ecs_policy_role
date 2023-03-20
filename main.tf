@@ -13,14 +13,14 @@ resource "aws_iam_role" "role" {
   assume_role_policy = file(each.value)
 }
 
-resource "aws_iam_role_policy_attachment" "developer-attach" {
-  count     = length(var.roles["developer"])
-  role       = aws_iam_role.role["role_documents/developer.json"].name
-  policy_arn =  aws_iam_policy.policy["policy_documents/${var.roles["developer"][count.index]}.json"].arn
+resource "aws_iam_role_policy_attachment" "task-role-attach" {
+  count     = length(var.roles["devops_task_role"])
+  role       = aws_iam_role.role["role_documents/devops_task_role.json"].name
+  policy_arn =  aws_iam_policy.policy["policy_documents/${var.roles["devops_task_role"][count.index]}.json"].arn
 }
 
-resource "aws_iam_role_policy_attachment" "devops-attach" {
-  count     = length(var.roles["devops"])
-  role       = aws_iam_role.role["role_documents/devops.json"].name
-  policy_arn =  aws_iam_policy.policy["policy_documents/${var.roles["devops"][count.index]}.json"].arn
+resource "aws_iam_role_policy_attachment" "task-role-execution-attach" {
+  count     = length(var.roles["devops_task_execution_policy"])
+  role       = aws_iam_role.role["role_documents/devops_task_execution_policy.json"].name
+  policy_arn =  aws_iam_policy.policy["policy_documents/${var.roles["devops_task_execution_policy"][count.index]}.json"].arn
 }

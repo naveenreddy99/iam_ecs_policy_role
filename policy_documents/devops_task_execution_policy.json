@@ -1,0 +1,57 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "kms:Decrypt",
+        "ssm:GetParameters",
+        "secretsmanager:GetSecretValue"
+      ],
+      "Resource": [
+        "arn:aws:secretsmanager:<region>:<aws_account_id>:secret:secret_name",
+        "arn:aws:kms:<region>:<aws_account_id>:key/key_id"     
+      ]
+    },
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:GetSecretValue",
+            "kms:Decrypt"
+          ],
+          "Resource": [
+            "arn:aws:secretsmanager:<region>:<aws_account_id>:secret:<secret_name>",
+            "arn:aws:kms:<region>:<aws_account_id>:key/<key_id>"
+          ]
+        }
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+          "ecr:GetAuthorizationToken",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+          "ecr:BatchCheckLayerAvailability",
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:BatchGetImage"
+      ],
+      "Resource": "*",
+      "Condition": {
+          "StringEquals": {
+              "aws:sourceVpce": "vpce-xxxxxx",
+              "aws:sourceVpc": "vpc-xxxxx"
+          }
+      }
+    }
+  ]
+}
